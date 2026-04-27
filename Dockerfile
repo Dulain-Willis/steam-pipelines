@@ -39,4 +39,4 @@ COPY src/ /opt/pipeline/src/
 RUN pip3 install --no-cache-dir /opt/pipeline/[spark_dockerfile]
 
 # Copy spark jobs
-COPY spark/ /opt/spark/jobs/
+COPY jobs/ /opt/spark/jobs/
