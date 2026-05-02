@@ -40,3 +40,6 @@ RUN pip3 install --no-cache-dir /opt/pipeline/[spark_dockerfile]
 
 # Copy spark jobs
 COPY jobs/ /opt/spark/jobs/
+
+# Copy Spark configuration
+COPY docker/conf/spark-defaults.conf /opt/spark/conf/spark-defaults.conf
