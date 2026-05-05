@@ -37,9 +37,19 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push
+        id: build
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Trigger orchestration build
+        if: success()
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.GH_DISPATCH_TOKEN }}
+          repository: Dulain-Willis/steam-orchestration
+          event-type: pipelines-updated
+          client-payload: '{"pipelines_sha": "${{ steps.build.outputs.digest }}"}'
